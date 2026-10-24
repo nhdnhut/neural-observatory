@@ -1,0 +1,12 @@
+{
+  "transform": "zero-filled translation 2 pixels right",
+  "split": "official test (10000)",
+  "clean": {
+    "loss": 0.08353509559631347,
+    "accuracy": 0.9772
+  },
+  "shifted": {
+    "loss": 0.7519147705078125,
+    "accuracy": 0.8215
+  }
+}

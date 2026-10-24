@@ -1,0 +1,4 @@
+# Optional accelerated experiments and static figures. Reference training,
+# packed inference and the offline dashboard do not require these packages.
+numpy==2.3.5
+matplotlib==3.10.8

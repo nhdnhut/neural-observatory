@@ -1,0 +1,85 @@
+{
+  "project": "Neural Observatory",
+  "source_repository": "https://github.com/DangNhutNguyen/Neural-Network-from-Scratch",
+  "source_commit": "c3ce89b4cc22e034611287e30af1b5dda6d17bbe",
+  "started_utc": "2026-10-18T08:26:39.158304+00:00",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "threads": 1,
+  "dataset": {
+    "name": "MNIST",
+    "checksums_sha256": {
+      "train-images-idx3-ubyte.gz": "440fcabf73cc546fa21475e81ea370265605f56be210a4024d2ca8f203523609",
+      "train-labels-idx1-ubyte.gz": "3552534a0a558bbed6aed32b30c495cca23d567ec52cac8be1a0730e8010255c",
+      "t10k-images-idx3-ubyte.gz": "8d422c7b0a1c1c79245a5bcf07fe86e33eeafee792b84584aec276f5a2dbc4e6",
+      "t10k-labels-idx1-ubyte.gz": "f7ae60f92e00ec6debd23a6088c31dbd2371eca3ffa0defaefb259924204aec6"
+    },
+    "train": 55000,
+    "validation": 5000,
+    "test": 10000,
+    "split_seed": 2026,
+    "validation_per_class": 500,
+    "train_indices_sha256": "e7c1802dd8fa909ac1153ce7a78904298a341a95c1a2fd1b1601334184f9fb18",
+    "validation_indices_sha256": "32e67bc006ecd6356fe66d5add10becbdf9b21bf667cfed16527993e3f47813a"
+  },
+  "protocol": {
+    "epochs": 18,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "batch_size": 128,
+    "optimizer": "manual SGD momentum 0.9",
+    "checkpoint_selection": "minimum validation cross-entropy",
+    "training_curve_subset": 5000,
+    "test_used_for_selection": false,
+    "latency_samples": 100,
+    "latency_repeats": 3,
+    "configs": [
+      {
+        "id": "observatory_64_32",
+        "dims": [
+          784,
+          64,
+          32,
+          10
+        ],
+        "activation": "relu",
+        "lr": 0.04
+      },
+      {
+        "id": "baseline_20_sigmoid",
+        "dims": [
+          784,
+          20,
+          10
+        ],
+        "activation": "sigmoid",
+        "lr": 0.12
+      },
+      {
+        "id": "compact_20_relu",
+        "dims": [
+          784,
+          20,
+          10
+        ],
+        "activation": "relu",
+        "lr": 0.04
+      },
+      {
+        "id": "budget_6_relu",
+        "dims": [
+          784,
+          6,
+          10
+        ],
+        "activation": "relu",
+        "lr": 0.04
+      }
+    ]
+  }
+}

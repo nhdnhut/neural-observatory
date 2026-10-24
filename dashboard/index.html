@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Neural Observatory — Nhut Nguyen</title>
+<meta name="description" content="A working, offline laboratory built from Nhut's neural network: actual MNIST training, layer activations, neuron interventions and weight quantization.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="#"><span class="brand-mark" aria-hidden="true">N<span>O</span></span><span>NEURAL<br><strong>OBSERVATORY</strong></span></a>
+  <div class="header-right"><span class="status-dot"></span><span>Thí nghiệm đã hoàn tất · CPU</span><span class="author">NHỰT NGUYỄN / 26521522</span></div>
+</header>
+<main>
+<section class="hero">
+  <div class="hero-copy"><div class="eyebrow">FROM SCRATCH, INTO VIEW</div><h1>Nhìn vào bên trong<br>một mạng neural.</h1><p>Tự xây dựng, quan sát và nén mạng neural dưới ngân sách bộ nhớ.</p><div class="hero-tags"><span>Backprop tự viết</span><span>Checkpoint thật</span><span>Can thiệp neuron</span><span>Weight-only INT8</span></div></div>
+  <div class="hero-study"><div class="study-label">NGHIÊN CỨU CÓ THỂ KIỂM CHỨNG</div><div class="hero-metric"><strong id="heroAccuracy">—</strong><span>accuracy test trung bình · 3 seed</span></div><div class="study-bottom"><div><strong>55k / 5k / 10k</strong><span>train / validation / test</span></div><div><strong id="heroCompression">—</strong><span>tỉ lệ dung lượng FP32 / INT8</span></div></div></div>
+</section>
+<nav class="tabs" aria-label="Các phần thí nghiệm">
+ <button type="button" class="tab active" data-tab="inspect" aria-selected="true">01 <span>Khám phá lớp mạng</span></button>
+ <button type="button" class="tab" data-tab="learning" aria-selected="false">02 <span>Quá trình học</span></button>
+ <button type="button" class="tab" data-tab="budget" aria-selected="false">03 <span>Ngân sách bộ nhớ</span></button>
+ <button type="button" class="tab" data-tab="evidence" aria-selected="false">04 <span>Kiểm chứng & giới hạn</span></button>
+</nav>
+
+<section class="tab-panel" id="inspect">
+ <div class="section-intro"><div><div class="eyebrow dark">LAYER EXPLORER</div><h2>Một ảnh. Từng lớp. Một quyết định.</h2></div><p>Phép tính chạy lại ngay trong trình duyệt với trọng số đã huấn luyện.</p></div>
+ <div class="control-bar">
+  <label>Chọn ảnh từ tập test<select id="sampleFilter"><option value="all">Tất cả mẫu minh hoạ</option><option value="correct">Dự đoán đúng</option><option value="errors">Dự đoán sai</option><option value="changed">INT8 đổi dự đoán</option></select></label>
+  <div class="sample-nav"><button type="button" id="prevSample" aria-label="Ảnh trước">←</button><span id="samplePosition">—</span><button type="button" id="nextSample" aria-label="Ảnh sau">→</button></div>
+  <label class="checkpoint-control">Checkpoint <span id="epochLabel">—</span><input type="range" id="epochSlider" min="0" max="7" value="7" aria-label="Epoch checkpoint"></label>
+  <label>Trọng số<select id="precision"><option value="fp32">FP32</option><option value="int8">INT8 · checkpoint tốt nhất</option></select></label>
+ </div>
+ <div class="network-board">
+  <article class="network-stage input-stage"><div class="stage-top"><span class="stage-number">01</span><h3>Ảnh đầu vào</h3></div><div class="stage-shape">28 × 28 → 784 giá trị</div><canvas id="inputCanvas" width="224" height="224" aria-label="Ảnh đầu vào; bật chế độ vẽ để nhập nét bằng chuột hoặc chạm"></canvas><div class="input-meta" id="sampleMeta">—</div><div class="draw-actions"><button type="button" id="drawMode">Tự vẽ chữ số</button><button type="button" id="clearDrawing" hidden>Xoá nét</button><button type="button" id="normalizeDrawing" hidden>Căn giữa nét</button><button type="button" id="returnSample" hidden>Về ảnh test</button></div></article>
+  <article class="network-stage"><div class="stage-top"><span class="stage-number">02</span><h3>Dense · ReLU</h3></div><div class="stage-shape">784 → 64 neuron</div><canvas id="layer0Canvas" class="activation-canvas" width="240" height="240" aria-label="Activation của 64 neuron lớp ẩn 1. Có thể chọn bằng điều khiển neuron bên dưới."></canvas><div class="stage-footer"><span id="active0">—</span><span>activation</span></div></article>
+  <article class="network-stage"><div class="stage-top"><span class="stage-number">03</span><h3>Dense · ReLU</h3></div><div class="stage-shape">64 → 32 neuron</div><canvas id="layer1Canvas" class="activation-canvas" width="240" height="240" aria-label="Activation của 32 neuron lớp ẩn 2. Có thể chọn bằng điều khiển neuron bên dưới."></canvas><div class="stage-footer"><span id="active1">—</span><span>activation</span></div></article>
+  <article class="network-stage output-stage"><div class="stage-top"><span class="stage-number">04</span><h3>Dense · Softmax</h3></div><div class="stage-shape">32 → 10 lớp chữ số</div><div class="probabilities" id="probabilities"></div><div class="prediction" aria-live="polite"><span>Dự đoán</span><strong id="predictedDigit">—</strong><span id="predictionScore">—</span></div></article>
+ </div>
+ <div class="activation-legend"><span class="legend-ramp"></span><span>Activation: 0 → lớn nhất của từng lớp trên ảnh hiện tại</span><span class="legend-muted">× = neuron bị tắt · Các lớp dùng thang riêng.</span></div>
+ <div class="inspection-grid">
+  <article class="panel intervention-panel"><div class="panel-heading"><span class="eyebrow dark">INTERVENTION</span><h3>Nếu tắt một neuron thì sao?</h3></div><div class="intervention-controls"><label>Lớp<select id="selectedLayer"><option value="0">Lớp ẩn 1 · 64 neuron</option><option value="1">Lớp ẩn 2 · 32 neuron</option></select></label><label>Neuron <strong id="selectedNeuronLabel">1</strong><input type="range" id="selectedNeuron" min="0" max="63" value="0"></label></div><label class="switch-row"><input type="checkbox" id="ablateNeuron"><span>Đặt activation neuron này bằng 0</span></label><div class="intervention-result" id="interventionResult" aria-live="polite">—</div><button type="button" class="text-button" id="resetInterventions">Khôi phục mọi neuron</button><p class="small-note">Đây là can thiệp trực tiếp vào phép tính; không phải xoá neuron và huấn luyện lại.</p></article>
+  <article class="panel visual-detail"><div class="panel-heading"><span class="eyebrow dark">WEIGHT VIEW</span><h3 id="weightTitle">Trọng số đi vào neuron</h3></div><canvas id="weightCanvas" width="168" height="168" aria-label="Bản đồ trọng số đi vào neuron được chọn"></canvas><p id="weightNote" class="small-note">—</p></article>
+  <article class="panel visual-detail"><div class="panel-heading"><span class="eyebrow dark">LOCAL SENSITIVITY</span><h3>Pixel nào làm logit nhạy nhất?</h3></div><canvas id="saliencyCanvas" width="168" height="168" aria-label="Độ lớn đạo hàm logit theo từng pixel"></canvas><p class="small-note">|∂logit / ∂pixel| cho lớp đang dự đoán. Độ nhạy cục bộ không đồng nghĩa với lời giải thích ngữ nghĩa.</p></article>
+ </div>
+ <p class="footnote">Bộ ảnh minh hoạ gồm mẫu đúng, mẫu sai và mẫu đổi dự đoán sau nén; không đại diện tỉ lệ lỗi của toàn tập test. Nét vẽ tay mới nằm ngoài benchmark MNIST.</p>
+</section>
+
+<section class="tab-panel" id="learning" hidden>
+ <div class="section-intro"><div><div class="eyebrow dark">TRAINING, RECORDED</div><h2>Quá trình học để lại dấu vết.</h2></div><p>Mỗi điểm là kết quả đã đo. Không nội suy trọng số giữa các checkpoint.</p></div>
+ <div class="metric-strip"><div><span>Kiến trúc chính</span><strong>784 → 64 → 32 → 10</strong></div><div><span>Checkpoint chọn bằng validation loss</span><strong id="bestEpochText">—</strong></div><div><span>Tham số có thể học</span><strong id="parameterText">—</strong></div><div><span>Huấn luyện seed 42</span><strong id="trainingTimeText">—</strong></div></div>
+ <div class="chart-grid"><article class="chart-panel"><h3>Độ chính xác qua từng epoch</h3><div class="chart-legend"><span class="purple-key">Train diagnostic subset · 5.000 ảnh</span><span class="teal-key">Validation · 5.000 ảnh</span></div><canvas id="accuracyChart" class="plot" aria-label="Đồ thị accuracy theo epoch"></canvas></article><article class="chart-panel"><h3>Cross-entropy</h3><div class="chart-legend"><span class="purple-key">Train subset</span><span class="teal-key">Validation</span></div><canvas id="lossChart" class="plot" aria-label="Đồ thị cross-entropy theo epoch"></canvas></article></div>
+ <div class="chart-grid"><article class="chart-panel"><h3>Activation bằng 0 trong từng lớp</h3><p class="small-note">Đo trên cùng 1.024 ảnh validation; zero activation không luôn là neuron chết.</p><div class="chart-legend"><span class="purple-key">Lớp ẩn 1</span><span class="teal-key">Lớp ẩn 2</span></div><canvas id="zeroChart" class="plot" aria-label="Tỉ lệ activation bằng 0 theo epoch"></canvas></article><article class="chart-panel"><h3>Độ lớn gradient của từng lớp</h3><p class="small-note">Chuẩn L2 của gradient trọng số tại minibatch đầu tiên mỗi epoch.</p><div class="chart-legend"><span class="purple-key">Dense 1</span><span class="teal-key">Dense 2</span><span class="orange-key">Dense đầu ra</span></div><canvas id="gradientChart" class="plot" aria-label="Độ lớn gradient theo epoch"></canvas></article></div>
+ <div class="method-note"><strong>Chọn mô hình đúng cách.</strong> Train để cập nhật trọng số. Validation để chọn checkpoint. Test 10.000 ảnh chỉ dùng cho đánh giá sau huấn luyện. Đường train dùng một tập con cố định để giảm chi phí ghi log; số liệu train cuối cùng dùng toàn bộ 55.000 ảnh.</div>
+</section>
+
+<section class="tab-panel" id="budget" hidden>
+ <div class="section-intro"><div><div class="eyebrow dark">ACCURACY UNDER A BUDGET</div><h2>Mỗi kilobyte giữ lại được điều gì?</h2></div><p>Cùng dữ liệu, ba seed và quy trình chọn checkpoint. So sánh cả những mạng nhỏ hơn.</p></div>
+ <div class="budget-control"><label>Ngân sách tệp mô hình <strong id="budgetLabel">64 KiB</strong><input type="range" id="budgetSlider" min="16" max="256" value="64" step="1"></label><div id="budgetRecommendation" aria-live="polite"></div></div>
+ <div class="chart-grid"><article class="chart-panel"><h3>Độ chính xác và dung lượng lưu trữ</h3><p class="small-note">Điểm: trung bình 3 seed. Thanh sai số: ±1 độ lệch chuẩn giữa các seed.</p><div class="chart-legend"><span class="purple-key">● FP32</span><span class="teal-key">■ INT8</span></div><canvas id="budgetChart" class="plot" aria-label="Độ chính xác test theo dung lượng mô hình"></canvas></article><article class="chart-panel"><h3>Lượng tử hoá trọng số thay đổi gì?</h3><div id="compressionFacts" class="compression-facts"></div><div class="method-note compact">INT8 ở đây chỉ áp dụng cho trọng số lưu trữ. Bias, scale và phép tính vẫn dùng số thực. Kích thước tệp không phải RAM toàn tiến trình.</div></article></div>
+ <div class="table-wrap"><table><thead><tr><th>Mô hình</th><th>Trọng số</th><th>Test accuracy<br><small>mean ± SD, 3 seed</small></th><th>Tệp</th><th>Độ trễ p50</th><th>Trong ngân sách</th></tr></thead><tbody id="benchmarkRows"></tbody></table></div>
+ <div class="table-footer"><p class="footnote">Độ trễ: CPU Python chuẩn, batch 1, 100 ảnh × 3 lượt, 10 lượt làm nóng. Cột p50 là trung vị p50 của ba seed; không phải kết quả trên máy của bạn.</p><button type="button" id="downloadCSV">Tải bảng tổng hợp CSV</button></div>
+</section>
+
+<section class="tab-panel" id="evidence" hidden>
+ <div class="section-intro"><div><div class="eyebrow dark">REPRODUCIBLE, NOT INFALLIBLE</div><h2>Biết mạng làm đúng. Biết mạng còn yếu.</h2></div><p>Kiểm tra toán học, lưu nguồn dữ liệu và công khai các giới hạn.</p></div>
+ <div class="evidence-grid"><article class="panel"><h3>Ma trận nhầm lẫn · seed 42</h3><canvas id="confusionChart" width="480" height="430" aria-label="Ma trận nhầm lẫn 10 lớp trên 10000 ảnh test"></canvas><p class="small-note">Hàng = nhãn thật; cột = dự đoán. Giá trị là số ảnh.</p></article><article class="panel"><h3>Đổi đầu vào một chút</h3><div id="robustnessFacts" class="compression-facts"></div><p class="small-note">Dịch ảnh 2 pixel sang phải, điền 0 vào vùng trống. Kiểm tra này không được dùng để chọn mô hình.</p><hr><h3>Can thiệp neuron trên validation</h3><div id="ablationRanking"></div><p class="small-note">Tắt từng neuron riêng lẻ, trên 1.024 ảnh validation. Ảnh hưởng có thể phụ thuộc mẫu và tương tác giữa các neuron.</p></article></div>
+ <div class="evidence-grid"><article class="panel"><h3>Đường đi từ repo gốc</h3><ol class="provenance-list"><li>Giữ nguyên bản gốc trong <code>legacy/</code>.</li><li>Giữ quy ước trọng số <code>[output, input]</code>; sửa cập nhật trước khi tính đủ gradient.</li><li>Mở rộng thành nhiều lớp, loss ổn định và bộ huấn luyện có checkpoint.</li><li>Bổ sung lõi Python chuẩn, nén trọng số, kiểm thử và thí nghiệm ba seed.</li></ol><a href="https://github.com/DangNhutNguyen/Neural-Network-from-Scratch" target="_blank" rel="noopener">Xem dự án gốc ↗</a></article><article class="panel"><h3>Phạm vi được công bố</h3><ul class="provenance-list"><li>NumPy chỉ làm phép toán mảng trong bộ huấn luyện lớn; không có autograd.</li><li>Bản Python thuần đã train thật trên 1.024 ảnh; kết quả của nó được tách riêng.</li><li>MLP nhận dạng chữ số, chưa phải LLM hoặc hệ thống decoding.</li><li>Gradient sensitivity và weight maps không chứng minh neuron hiểu một khái niệm.</li><li>Độ lệch chuẩn ba seed mô tả biến thiên huấn luyện; không phải khoảng tin cậy quần thể.</li></ul></article></div>
+ <div class="method-note" id="environmentFacts"></div>
+</section>
+<footer><div><strong>Neural Observatory</strong><span>Phát triển từ Neural-Network-from-Scratch của Nguyễn Huỳnh Đăng Nhựt.</span></div><span>Manual backprop · Local inference · Actual measurements</span></footer>
+</main>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

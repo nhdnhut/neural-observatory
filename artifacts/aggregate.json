@@ -1,0 +1,220 @@
+[
+  {
+    "model": "observatory_64_32",
+    "variant": "fp32",
+    "dims": [
+      784,
+      64,
+      32,
+      10
+    ],
+    "parameters": 52650,
+    "model_bytes": 210730,
+    "weight_bytes": 210176,
+    "accuracy_mean": 0.9774666666666666,
+    "accuracy_sd": 0.00046188021535171385,
+    "validation_mean": 0.9776,
+    "latency_p50_ms": 3.8423045,
+    "latency_p95_ms": 4.736557250000001,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "changes": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "model": "observatory_64_32",
+    "variant": "int8",
+    "dims": [
+      784,
+      64,
+      32,
+      10
+    ],
+    "parameters": 52650,
+    "model_bytes": 53551,
+    "weight_bytes": 52544,
+    "accuracy_mean": 0.9775,
+    "accuracy_sd": 0.0005000000000000004,
+    "validation_mean": 0.9776,
+    "latency_p50_ms": 4.7898724999999995,
+    "latency_p95_ms": 5.670792400000001,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "changes": [
+      2,
+      3,
+      3
+    ]
+  },
+  {
+    "model": "baseline_20_sigmoid",
+    "variant": "fp32",
+    "dims": [
+      784,
+      20,
+      10
+    ],
+    "parameters": 15910,
+    "model_bytes": 63770,
+    "weight_bytes": 63520,
+    "accuracy_mean": 0.9562666666666667,
+    "accuracy_sd": 0.0014294521094927832,
+    "validation_mean": 0.9538666666666666,
+    "latency_p50_ms": 1.1797325,
+    "latency_p95_ms": 1.5132337500000004,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "changes": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "model": "baseline_20_sigmoid",
+    "variant": "int8",
+    "dims": [
+      784,
+      20,
+      10
+    ],
+    "parameters": 15910,
+    "model_bytes": 16279,
+    "weight_bytes": 15880,
+    "accuracy_mean": 0.9561333333333334,
+    "accuracy_sd": 0.001357694123627773,
+    "validation_mean": 0.9538,
+    "latency_p50_ms": 1.3758985,
+    "latency_p95_ms": 1.6757391000000004,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "changes": [
+      13,
+      9,
+      7
+    ]
+  },
+  {
+    "model": "compact_20_relu",
+    "variant": "fp32",
+    "dims": [
+      784,
+      20,
+      10
+    ],
+    "parameters": 15910,
+    "model_bytes": 63767,
+    "weight_bytes": 63520,
+    "accuracy_mean": 0.9585,
+    "accuracy_sd": 0.0021656407827707253,
+    "validation_mean": 0.9575333333333333,
+    "latency_p50_ms": 1.1118999999999999,
+    "latency_p95_ms": 1.30204155,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "changes": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "model": "compact_20_relu",
+    "variant": "int8",
+    "dims": [
+      784,
+      20,
+      10
+    ],
+    "parameters": 15910,
+    "model_bytes": 16276,
+    "weight_bytes": 15880,
+    "accuracy_mean": 0.9585,
+    "accuracy_sd": 0.0024269322199023426,
+    "validation_mean": 0.9571333333333333,
+    "latency_p50_ms": 1.4054324999999999,
+    "latency_p95_ms": 1.6621453000000002,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "changes": [
+      11,
+      12,
+      16
+    ]
+  },
+  {
+    "model": "budget_6_relu",
+    "variant": "fp32",
+    "dims": [
+      784,
+      6,
+      10
+    ],
+    "parameters": 4780,
+    "model_bytes": 19246,
+    "weight_bytes": 19056,
+    "accuracy_mean": 0.9106,
+    "accuracy_sd": 0.0069548544197560415,
+    "validation_mean": 0.9112666666666667,
+    "latency_p50_ms": 0.340348,
+    "latency_p95_ms": 0.4807155,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "changes": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "model": "budget_6_relu",
+    "variant": "int8",
+    "dims": [
+      784,
+      6,
+      10
+    ],
+    "parameters": 4780,
+    "model_bytes": 5047,
+    "weight_bytes": 4764,
+    "accuracy_mean": 0.9105,
+    "accuracy_sd": 0.006369458375717663,
+    "validation_mean": 0.9116666666666666,
+    "latency_p50_ms": 0.410378,
+    "latency_p95_ms": 0.5460022000000001,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "changes": [
+      19,
+      21,
+      17
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "runtime": "Python standard library; tested with python -S",
+  "train_samples": 1024,
+  "validation_samples": 256,
+  "test_evaluated": false,
+  "architecture": [
+    784,
+    20,
+    10
+  ],
+  "seed": 42,
+  "learning_rate": 0.01,
+  "optimizer": "per-sample SGD",
+  "history": [
+    {
+      "epoch": 1,
+      "online_training_loss": 1.3073930403249705,
+      "validation_accuracy": 0.71875,
+      "elapsed_s": 2.4629111130000183
+    },
+    {
+      "epoch": 2,
+      "online_training_loss": 0.506034506993043,
+      "validation_accuracy": 0.796875,
+      "elapsed_s": 4.969286029999921
+    }
+  ],
+  "purpose": "algorithm demonstration, not comparable to the full NumPy benchmark"
+}

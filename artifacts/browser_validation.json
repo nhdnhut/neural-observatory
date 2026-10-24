@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "samples": 82,
+  "fpError": 0.0000014516825608823503,
+  "qError": 0.0000016113534737072222,
+  "fpMismatch": 0,
+  "qMismatch": 0,
+  "saliencyError": 5.126031404900644e-10,
+  "checks": [
+    "offline standalone load",
+    "JavaScript/Python FP32 and INT8 parity",
+    "saliency finite difference",
+    "checkpoint replay",
+    "INT8 checkpoint selection",
+    "neuron selection and ablation reset",
+    "error and changed-sample filtering",
+    "drawing/normalization/reset",
+    "all tabs",
+    "budget eligibility and validation-based recommendation",
+    "CSV export",
+    "responsive 390px and 320px"
+  ],
+  "console_errors": [],
+  "external_requests": []
+}

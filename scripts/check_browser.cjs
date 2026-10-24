@@ -1,0 +1,76 @@
+const fs=require('fs');
+const path=require('path');
+const assert=require('assert');
+const {chromium}=require('playwright');
+const root=path.resolve(__dirname,'..');
+const out=process.env.NOBS_QA_DIR || path.join(require('os').tmpdir(),'neural-observatory-qa');
+fs.mkdirSync(out,{recursive:true});
+(async()=>{
+ const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_EXECUTABLE || undefined,args:['--no-sandbox']});
+ const page=await browser.newPage({viewport:{width:1440,height:1080},deviceScaleFactor:1});
+ const errors=[];const external=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ page.on('request',r=>{if(/^https?:/.test(r.url()))external.push(r.url());});
+ await page.goto('file://'+root+'/artifacts/Neural_Observatory.html');
+ await page.waitForFunction(()=>window.Observatory);
+ const parity=await page.evaluate(()=>{
+  const o=window.Observatory,main=o.checkpoints.find(m=>m.epoch===o.data.best_epoch);
+  let fpError=0,qError=0,fpMismatch=0,qMismatch=0;
+  for(const s of o.data.samples){
+   const x=Array.from(atob(s.pixels),c=>c.charCodeAt(0)/255),fp=o.forward(main,x).p,q=o.forward(o.quantized,x).p;
+   const arg=a=>a.reduce((b,v,i)=>v>a[b]?i:b,0);
+   fpError=Math.max(fpError,...fp.map((v,i)=>Math.abs(v-s.reference_probabilities[i])));
+   qError=Math.max(qError,...q.map((v,i)=>Math.abs(v-s.quantized_probabilities[i])));
+   fpMismatch+=arg(fp)!==s.prediction;qMismatch+=arg(q)!==s.quantized_prediction;
+  }
+  const s=o.data.samples[0],x=Array.from(atob(s.pixels),c=>c.charCodeAt(0)/255),tr=o.forward(main,x),target=tr.p.indexOf(Math.max(...tr.p)),analytic=o.saliency(main,tr,target,[new Set(),new Set()]);
+  let saliencyError=0;
+  for(const i of [0,123,250,400,600,783]){const old=x[i],eps=1e-5;x[i]=old+eps;const plus=o.forward(main,x).zs.at(-1)[target];x[i]=old-eps;const minus=o.forward(main,x).zs.at(-1)[target];x[i]=old;saliencyError=Math.max(saliencyError,Math.abs(Math.abs((plus-minus)/(2*eps))-analytic[i]));}
+  return {samples:o.data.samples.length,fpError,qError,fpMismatch,qMismatch,saliencyError};
+ });
+ assert(parity.fpError<2e-5&&parity.qError<2e-5,JSON.stringify(parity));
+ assert.equal(parity.fpMismatch,0);assert.equal(parity.qMismatch,0);assert(parity.saliencyError<1e-5);
+ await page.screenshot({path:out+'/desktop-inspect.png',fullPage:true});
+ const before=await page.locator('#predictionScore').textContent();
+ await page.locator('#epochSlider').evaluate(e=>{e.value='0';e.dispatchEvent(new Event('input',{bubbles:true}));});
+ const untrained=await page.locator('#predictionScore').textContent();assert.notEqual(before,untrained);
+ await page.selectOption('#precision','int8');assert(await page.locator('#epochSlider').isDisabled());
+ await page.selectOption('#precision','fp32');
+ await page.selectOption('#selectedLayer','1');
+ await page.locator('#selectedNeuron').evaluate(e=>{e.value='11';e.dispatchEvent(new Event('input',{bubbles:true}));});
+ await page.check('#ablateNeuron');
+ assert((await page.locator('#interventionResult').textContent()).includes('1 neuron'));
+ const state=await page.evaluate(()=>window.Observatory.getState());assert.deepEqual(state.disabled,[[],[11]]);
+ await page.click('#resetInterventions');assert.deepEqual((await page.evaluate(()=>window.Observatory.getState())).disabled,[[],[]]);
+ await page.selectOption('#sampleFilter','errors');
+ const wrong=await page.evaluate(()=>{const o=window.Observatory,s=o.data.samples.find(s=>s.error),m=o.checkpoints.find(m=>m.epoch===o.data.best_epoch);return {truth:s.label,pred:Number(document.getElementById('predictedDigit').textContent)};});
+ assert.notEqual(wrong.truth,wrong.pred);
+ await page.selectOption('#sampleFilter','changed');assert((await page.locator('#samplePosition').textContent()).includes('/'));
+ await page.click('#drawMode');
+ const box=await page.locator('#inputCanvas').boundingBox();
+ await page.mouse.move(box.x+box.width*.4,box.y+box.height*.2);await page.mouse.down();await page.mouse.move(box.x+box.width*.6,box.y+box.height*.8,{steps:15});await page.mouse.up();
+ assert((await page.evaluate(()=>window.Observatory.getState().input.reduce((s,v)=>s+v,0)))>0);
+ await page.click('#normalizeDrawing');await page.click('#clearDrawing');assert.equal(await page.evaluate(()=>window.Observatory.getState().input.reduce((s,v)=>s+v,0)),0);
+ await page.click('#returnSample');
+ await page.click('[data-tab=learning]');await page.screenshot({path:out+'/desktop-learning.png',fullPage:true});
+ await page.click('[data-tab=budget]');
+ await page.locator('#budgetSlider').evaluate(e=>{e.value='256';e.dispatchEvent(new Event('input',{bubbles:true}));});assert.equal(await page.locator('tr.eligible').count(),8);
+ await page.locator('#budgetSlider').evaluate(e=>{e.value='16';e.dispatchEvent(new Event('input',{bubbles:true}));});assert((await page.locator('tr.eligible').count())<8);
+ await page.locator('#budgetSlider').evaluate(e=>{e.value='64';e.dispatchEvent(new Event('input',{bubbles:true}));});
+ assert((await page.locator('#budgetRecommendation').textContent()).includes('Observatory'));
+ const downloadPromise=page.waitForEvent('download');await page.click('#downloadCSV');const dl=await downloadPromise;await dl.saveAs(out+'/ui-export.csv');
+ assert(fs.readFileSync(out+'/ui-export.csv','utf8').includes('validation_mean'));
+ await page.screenshot({path:out+'/desktop-budget.png',fullPage:true});
+ await page.click('[data-tab=evidence]');await page.screenshot({path:out+'/desktop-evidence.png',fullPage:true});
+ await page.setViewportSize({width:390,height:844});
+ await page.click('[data-tab=inspect]');await page.selectOption('#sampleFilter','all');
+ const mobileOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+1);assert(!mobileOverflow,'Page overflows at 390px');
+ await page.screenshot({path:out+'/mobile-inspect.png',fullPage:true});
+ await page.setViewportSize({width:320,height:800});
+ const smallOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+1);assert(!smallOverflow,'Page overflows at 320px');
+ for(const tab of ['learning','budget','evidence']){await page.click('[data-tab='+tab+']');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+1),false,'Overflow: '+tab);}
+ assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+ const result={status:'passed',...parity,checks:['offline standalone load','JavaScript/Python FP32 and INT8 parity','saliency finite difference','checkpoint replay','INT8 checkpoint selection','neuron selection and ablation reset','error and changed-sample filtering','drawing/normalization/reset','all tabs','budget eligibility and validation-based recommendation','CSV export','responsive 390px and 320px'],console_errors:errors,external_requests:external};
+ fs.writeFileSync(root+'/artifacts/browser_validation.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1);});

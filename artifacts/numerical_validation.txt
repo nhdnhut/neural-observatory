@@ -1,0 +1,10 @@
+test_all_reference_gradients_finite_difference (test_algorithms.AlgorithmTests.test_all_reference_gradients_finite_difference) ... ok
+test_numpy_matches_reference_forward_and_gradients (test_algorithms.AlgorithmTests.test_numpy_matches_reference_forward_and_gradients) ... ok
+test_packed_roundtrip_predictions (test_algorithms.AlgorithmTests.test_packed_roundtrip_predictions) ... ok
+test_quantization_error_bound_and_zero (test_algorithms.AlgorithmTests.test_quantization_error_bound_and_zero) ... ok
+test_softmax_extremes (test_algorithms.AlgorithmTests.test_softmax_extremes) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.080s
+
+OK

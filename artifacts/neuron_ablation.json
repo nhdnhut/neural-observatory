@@ -1,0 +1,583 @@
+{
+  "split": "first 1024 validation examples in the fixed split order",
+  "n": 1024,
+  "baseline_accuracy": 0.97265625,
+  "items": [
+    {
+      "layer": 0,
+      "neuron": 0,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": -0.0004416542360559106
+    },
+    {
+      "layer": 0,
+      "neuron": 1,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": -0.00042199264862574637
+    },
+    {
+      "layer": 0,
+      "neuron": 2,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": 0.0004649117181543261
+    },
+    {
+      "layer": 0,
+      "neuron": 3,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.006973289884626865
+    },
+    {
+      "layer": 0,
+      "neuron": 4,
+      "accuracy_drop_pp": 0.48828125,
+      "mean_true_probability_drop": 0.0030018649995326996
+    },
+    {
+      "layer": 0,
+      "neuron": 5,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.0010947876144200563
+    },
+    {
+      "layer": 0,
+      "neuron": 6,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.004743500147014856
+    },
+    {
+      "layer": 0,
+      "neuron": 7,
+      "accuracy_drop_pp": 0.5859375,
+      "mean_true_probability_drop": 0.00517023541033268
+    },
+    {
+      "layer": 0,
+      "neuron": 8,
+      "accuracy_drop_pp": -0.09765625,
+      "mean_true_probability_drop": 0.0014915326610207558
+    },
+    {
+      "layer": 0,
+      "neuron": 9,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.002207956975325942
+    },
+    {
+      "layer": 0,
+      "neuron": 10,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.0035625589080154896
+    },
+    {
+      "layer": 0,
+      "neuron": 11,
+      "accuracy_drop_pp": 0.5859375,
+      "mean_true_probability_drop": 0.005960674025118351
+    },
+    {
+      "layer": 0,
+      "neuron": 12,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.0013276452664285898
+    },
+    {
+      "layer": 0,
+      "neuron": 13,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.003519219346344471
+    },
+    {
+      "layer": 0,
+      "neuron": 14,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": -7.334165275096893e-09
+    },
+    {
+      "layer": 0,
+      "neuron": 15,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.005921336356550455
+    },
+    {
+      "layer": 0,
+      "neuron": 16,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.0031995512545108795
+    },
+    {
+      "layer": 0,
+      "neuron": 17,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.0016775309341028333
+    },
+    {
+      "layer": 0,
+      "neuron": 18,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.003646641969680786
+    },
+    {
+      "layer": 0,
+      "neuron": 19,
+      "accuracy_drop_pp": 0.5859375,
+      "mean_true_probability_drop": 0.0055208951234817505
+    },
+    {
+      "layer": 0,
+      "neuron": 20,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.002234354615211487
+    },
+    {
+      "layer": 0,
+      "neuron": 21,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.0034134769812226295
+    },
+    {
+      "layer": 0,
+      "neuron": 22,
+      "accuracy_drop_pp": 2.1484375,
+      "mean_true_probability_drop": 0.025276508182287216
+    },
+    {
+      "layer": 0,
+      "neuron": 23,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.0034218383952975273
+    },
+    {
+      "layer": 0,
+      "neuron": 24,
+      "accuracy_drop_pp": 0.78125,
+      "mean_true_probability_drop": 0.009767076000571251
+    },
+    {
+      "layer": 0,
+      "neuron": 25,
+      "accuracy_drop_pp": 1.3671875,
+      "mean_true_probability_drop": 0.015412559732794762
+    },
+    {
+      "layer": 0,
+      "neuron": 26,
+      "accuracy_drop_pp": 0.78125,
+      "mean_true_probability_drop": 0.00725428806617856
+    },
+    {
+      "layer": 0,
+      "neuron": 27,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.0016952479491010308
+    },
+    {
+      "layer": 0,
+      "neuron": 28,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.0013800854794681072
+    },
+    {
+      "layer": 0,
+      "neuron": 29,
+      "accuracy_drop_pp": -0.09765625,
+      "mean_true_probability_drop": 0.002149090636521578
+    },
+    {
+      "layer": 0,
+      "neuron": 30,
+      "accuracy_drop_pp": -0.1953125,
+      "mean_true_probability_drop": 0.0013725637691095471
+    },
+    {
+      "layer": 0,
+      "neuron": 31,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.00213094730861485
+    },
+    {
+      "layer": 0,
+      "neuron": 32,
+      "accuracy_drop_pp": 0.78125,
+      "mean_true_probability_drop": 0.006935484707355499
+    },
+    {
+      "layer": 0,
+      "neuron": 33,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.003177307080477476
+    },
+    {
+      "layer": 0,
+      "neuron": 34,
+      "accuracy_drop_pp": -0.09765625,
+      "mean_true_probability_drop": 0.0009685840923339128
+    },
+    {
+      "layer": 0,
+      "neuron": 35,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.0028216387145221233
+    },
+    {
+      "layer": 0,
+      "neuron": 36,
+      "accuracy_drop_pp": -0.09765625,
+      "mean_true_probability_drop": 0.0016382411122322083
+    },
+    {
+      "layer": 0,
+      "neuron": 37,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.0018140674801543355
+    },
+    {
+      "layer": 0,
+      "neuron": 38,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.005226944573223591
+    },
+    {
+      "layer": 0,
+      "neuron": 39,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.0034112364519387484
+    },
+    {
+      "layer": 0,
+      "neuron": 40,
+      "accuracy_drop_pp": 0.68359375,
+      "mean_true_probability_drop": 0.007464058697223663
+    },
+    {
+      "layer": 0,
+      "neuron": 41,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.005644475109875202
+    },
+    {
+      "layer": 0,
+      "neuron": 42,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.001990966033190489
+    },
+    {
+      "layer": 0,
+      "neuron": 43,
+      "accuracy_drop_pp": -0.09765625,
+      "mean_true_probability_drop": -2.1420419216156006e-07
+    },
+    {
+      "layer": 0,
+      "neuron": 44,
+      "accuracy_drop_pp": 0.5859375,
+      "mean_true_probability_drop": 0.003278374671936035
+    },
+    {
+      "layer": 0,
+      "neuron": 45,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.004110780544579029
+    },
+    {
+      "layer": 0,
+      "neuron": 46,
+      "accuracy_drop_pp": 0.5859375,
+      "mean_true_probability_drop": 0.003716839477419853
+    },
+    {
+      "layer": 0,
+      "neuron": 47,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": -0.00021028125775046647
+    },
+    {
+      "layer": 0,
+      "neuron": 48,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.0002684523642528802
+    },
+    {
+      "layer": 0,
+      "neuron": 49,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.001676740124821663
+    },
+    {
+      "layer": 0,
+      "neuron": 50,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": 0.00034011356183327734
+    },
+    {
+      "layer": 0,
+      "neuron": 51,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.0024450640194118023
+    },
+    {
+      "layer": 0,
+      "neuron": 52,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.0020640557631850243
+    },
+    {
+      "layer": 0,
+      "neuron": 53,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.005232532508671284
+    },
+    {
+      "layer": 0,
+      "neuron": 54,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.0011221810709685087
+    },
+    {
+      "layer": 0,
+      "neuron": 55,
+      "accuracy_drop_pp": 0.68359375,
+      "mean_true_probability_drop": 0.007835214957594872
+    },
+    {
+      "layer": 0,
+      "neuron": 56,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.002926409710198641
+    },
+    {
+      "layer": 0,
+      "neuron": 57,
+      "accuracy_drop_pp": 0.68359375,
+      "mean_true_probability_drop": 0.007695498876273632
+    },
+    {
+      "layer": 0,
+      "neuron": 58,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.0024741324596107006
+    },
+    {
+      "layer": 0,
+      "neuron": 59,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": 9.210334974341094e-05
+    },
+    {
+      "layer": 0,
+      "neuron": 60,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.002451338805258274
+    },
+    {
+      "layer": 0,
+      "neuron": 61,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": -8.093287033261731e-05
+    },
+    {
+      "layer": 0,
+      "neuron": 62,
+      "accuracy_drop_pp": 0.5859375,
+      "mean_true_probability_drop": 0.00830758549273014
+    },
+    {
+      "layer": 0,
+      "neuron": 63,
+      "accuracy_drop_pp": 3.515625,
+      "mean_true_probability_drop": 0.03488760441541672
+    },
+    {
+      "layer": 1,
+      "neuron": 0,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": 1.0463292710483074e-05
+    },
+    {
+      "layer": 1,
+      "neuron": 1,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.006339168641716242
+    },
+    {
+      "layer": 1,
+      "neuron": 2,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.0007885292870923877
+    },
+    {
+      "layer": 1,
+      "neuron": 3,
+      "accuracy_drop_pp": 0.87890625,
+      "mean_true_probability_drop": 0.014878252521157265
+    },
+    {
+      "layer": 1,
+      "neuron": 4,
+      "accuracy_drop_pp": 1.7578125,
+      "mean_true_probability_drop": 0.020785048604011536
+    },
+    {
+      "layer": 1,
+      "neuron": 5,
+      "accuracy_drop_pp": 0.78125,
+      "mean_true_probability_drop": 0.00974807795137167
+    },
+    {
+      "layer": 1,
+      "neuron": 6,
+      "accuracy_drop_pp": 1.5625,
+      "mean_true_probability_drop": 0.013963678851723671
+    },
+    {
+      "layer": 1,
+      "neuron": 7,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.0060808900743722916
+    },
+    {
+      "layer": 1,
+      "neuron": 8,
+      "accuracy_drop_pp": 4.296875,
+      "mean_true_probability_drop": 0.05304605886340141
+    },
+    {
+      "layer": 1,
+      "neuron": 9,
+      "accuracy_drop_pp": 3.125,
+      "mean_true_probability_drop": 0.03233819454908371
+    },
+    {
+      "layer": 1,
+      "neuron": 10,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": -1.248205080628395e-06
+    },
+    {
+      "layer": 1,
+      "neuron": 11,
+      "accuracy_drop_pp": 6.34765625,
+      "mean_true_probability_drop": 0.06111492961645126
+    },
+    {
+      "layer": 1,
+      "neuron": 12,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.003365142969414592
+    },
+    {
+      "layer": 1,
+      "neuron": 13,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": -6.3836341723799706e-06
+    },
+    {
+      "layer": 1,
+      "neuron": 14,
+      "accuracy_drop_pp": 0.68359375,
+      "mean_true_probability_drop": 0.008236836642026901
+    },
+    {
+      "layer": 1,
+      "neuron": 15,
+      "accuracy_drop_pp": 1.5625,
+      "mean_true_probability_drop": 0.017149150371551514
+    },
+    {
+      "layer": 1,
+      "neuron": 16,
+      "accuracy_drop_pp": 0.9765625,
+      "mean_true_probability_drop": 0.014072493650019169
+    },
+    {
+      "layer": 1,
+      "neuron": 17,
+      "accuracy_drop_pp": 0.1953125,
+      "mean_true_probability_drop": 0.01017625629901886
+    },
+    {
+      "layer": 1,
+      "neuron": 18,
+      "accuracy_drop_pp": 0.87890625,
+      "mean_true_probability_drop": 0.008391345851123333
+    },
+    {
+      "layer": 1,
+      "neuron": 19,
+      "accuracy_drop_pp": -0.29296875,
+      "mean_true_probability_drop": -0.0004453742003533989
+    },
+    {
+      "layer": 1,
+      "neuron": 20,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.0016271956264972687
+    },
+    {
+      "layer": 1,
+      "neuron": 21,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.00186264724470675
+    },
+    {
+      "layer": 1,
+      "neuron": 22,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.002331102266907692
+    },
+    {
+      "layer": 1,
+      "neuron": 23,
+      "accuracy_drop_pp": 1.66015625,
+      "mean_true_probability_drop": 0.01583266258239746
+    },
+    {
+      "layer": 1,
+      "neuron": 24,
+      "accuracy_drop_pp": 4.8828125,
+      "mean_true_probability_drop": 0.05799568071961403
+    },
+    {
+      "layer": 1,
+      "neuron": 25,
+      "accuracy_drop_pp": 0.87890625,
+      "mean_true_probability_drop": 0.007395702414214611
+    },
+    {
+      "layer": 1,
+      "neuron": 26,
+      "accuracy_drop_pp": 0.0,
+      "mean_true_probability_drop": 3.704091068357229e-05
+    },
+    {
+      "layer": 1,
+      "neuron": 27,
+      "accuracy_drop_pp": 0.68359375,
+      "mean_true_probability_drop": 0.005150624550879002
+    },
+    {
+      "layer": 1,
+      "neuron": 28,
+      "accuracy_drop_pp": 0.29296875,
+      "mean_true_probability_drop": 0.002769739832729101
+    },
+    {
+      "layer": 1,
+      "neuron": 29,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": 0.00026916753267869353
+    },
+    {
+      "layer": 1,
+      "neuron": 30,
+      "accuracy_drop_pp": 0.390625,
+      "mean_true_probability_drop": 0.004206011537462473
+    },
+    {
+      "layer": 1,
+      "neuron": 31,
+      "accuracy_drop_pp": 0.09765625,
+      "mean_true_probability_drop": -0.00024406770535279065
+    }
+  ]
+}
