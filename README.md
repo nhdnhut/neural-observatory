@@ -1,4 +1,4 @@
-# Neural Observatory
+﻿# Neural Observatory
 
 > First-principles deep neural network training, internal activation inspection, and memory-constrained quantization.
 > Python 3.11+ | NumPy Engine & Pure-Python Mode | Interactive Browser Dashboard | Zero Framework Dependencies
@@ -62,7 +62,7 @@ The dashboard is self-contained with embedded base64 weights and pre-computed te
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/nhutnhd/neural-observatory.git
+git clone https://github.com/nhdnhut/neural-observatory.git
 cd neural-observatory
 
 # Install requirements
@@ -99,25 +99,26 @@ python -S scripts/infer.py --index 0
 
 ```
 neural-observatory/
-├── artifacts/                  # Generated plots, CSV benchmarks, and standalone HTML dashboard
-├── dashboard/                  # Source files for the interactive visualization UI
-├── data/                       # MNIST dataset cache and verification hashes
-├── docs/                       # Technical documentation and experimental specifications
-├── legacy/                     # Original prototype codebase for historical provenance
-├── notebooks/                  # Reproducible Jupyter notebooks for inspection and gradient checks
-├── observatory/                # Core Python package (layers, optimizers, quantization, metrics)
-├── scripts/                    # Pure-Python standalone demonstration scripts
-├── tests/                      # Automated unit test suite
-├── main.py                     # Central CLI driver (test, train, evaluate, build)
-├── requirements.txt            # Python dependencies
-├── LICENSE                     # MIT License
-└── README.md                   # Project documentation
+â”œâ”€â”€ artifacts/                  # Generated plots, CSV benchmarks, and standalone HTML dashboard
+â”œâ”€â”€ dashboard/                  # Source files for the interactive visualization UI
+â”œâ”€â”€ data/                       # MNIST dataset cache and verification hashes
+â”œâ”€â”€ docs/                       # Technical documentation and experimental specifications
+â”œâ”€â”€ legacy/                     # Original prototype codebase for historical provenance
+â”œâ”€â”€ notebooks/                  # Reproducible Jupyter notebooks for inspection and gradient checks
+â”œâ”€â”€ observatory/                # Core Python package (layers, optimizers, quantization, metrics)
+â”œâ”€â”€ scripts/                    # Pure-Python standalone demonstration scripts
+â”œâ”€â”€ tests/                      # Automated unit test suite
+â”œâ”€â”€ main.py                     # Central CLI driver (test, train, evaluate, build)
+â”œâ”€â”€ requirements.txt            # Python dependencies
+â”œâ”€â”€ LICENSE                     # MIT License
+â””â”€â”€ README.md                   # Project documentation
 ```
 
 ---
 
 ## 6. Author and License
 
-- Author: Nguyen Huynh Dang Nhut (@nhutnhd)
+- Author: Nguyen Huynh Dang Nhut (@nhdnhut)
 - Affiliation: Faculty of Computer Science, University of Information Technology (UIT, VNU-HCM)
 - License: MIT License (see [LICENSE](LICENSE))
+
